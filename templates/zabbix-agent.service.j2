@@ -1,0 +1,16 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Zabbix Agent
+Documentation=man:zabbix_agentd
+After=network.target
+
+[Service]
+Type=simple
+User={{ zabbix_agent_user }}
+Group={{ zabbix_agent_group }}
+ExecStart=/usr/local/bin/zabbix_agentd --foreground -c /etc/zabbix-agent/zabbix-agent.conf
+Restart=on-abnormal
+
+[Install]
+WantedBy=multi-user.target
